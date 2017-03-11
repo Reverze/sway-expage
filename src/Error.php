@@ -1,6 +1,6 @@
 <?php
 
-namespace Rev\ExPage\Error;
+namespace Rev\ExPage;
 
 /**
  * Class Error
@@ -136,6 +136,51 @@ class Error
     {
         return $this->scopeAround;
     }
+
+    /**
+     * Gets the error level as string
+     * @return string
+     */
+    public function getLevelString() : string
+    {
+        switch($this->level){
+            case 1:
+                return 'E_ERROR';
+            case 2:
+                return 'E_WARNING';
+            case 4:
+                return 'E_PARSE';
+            case 8:
+                return 'E_NOTICE';
+            case 16:
+                return 'E_CORE_ERROR';
+            case 32:
+                return 'E_CORE_WARNING';
+            case 64:
+                return 'E_COMPILE_ERROR';
+            case 128:
+                return 'E_COMPILE_WARNING';
+            case 256:
+                return 'E_USER_ERROR';
+            case 512:
+                return 'E_USER_WARNING';
+            case 1024:
+                return 'E_USER_NOTICE';
+            case 2048:
+                return 'E_STRICT';
+            case 4096:
+                return 'E_RECOVERABLE_ERROR';
+            case 8192:
+                return 'E_DEPRECATED';
+            case 16384:
+                return 'E_USER_DEPRECATED';
+            case 32767:
+                return 'E_ALL';
+            default:
+                return 'E_ALL';
+        }
+    }
+
 }
 
 ?>

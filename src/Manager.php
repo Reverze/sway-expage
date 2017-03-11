@@ -47,6 +47,12 @@ class Manager
      */
     private $listener = null;
 
+    /**
+     * Parameters for cli view
+     * @var array
+     */
+    private $cliViewParameters = array();
+
     public function __construct(bool $enabled = true, array $parameters)
     {
         $this->startOutputBuffering();
@@ -114,6 +120,8 @@ class Manager
              */
             $this->separate['exceptions'] = $parameters['separate']['exceptions'] ?? null;
         }
+
+        $this->cliViewParameters = $parameters['cli_view'] ?? array();
     }
 
     /**
@@ -171,7 +179,7 @@ class Manager
         $sapiName = php_sapi_name();
 
         if ($sapiName === 'cli'){
-            $cliView = new CliView();
+            $cliView = new CliView($this->cliViewParameters);
             $cliView->setOccurredErrors($occurredErrors);
             $cliView->setUncaughtedException($uncaughtedExceptions);
             $cliView->render();

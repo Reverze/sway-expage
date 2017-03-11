@@ -2,7 +2,7 @@
 
 namespace Rev\ExPage;
 
-use Rev\ExPage\Error\Error;
+use Rev\ExPage\Error;
 
 /**
  * Class Listener
