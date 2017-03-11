@@ -151,7 +151,7 @@ class Manager
          */
         $uncaughtedExceptions = $this->listener->getUncaughtedExceptions();
 
-        var_dump($_SERVER);
+        var_dump(php_sapi_name());
     }
 
 }
