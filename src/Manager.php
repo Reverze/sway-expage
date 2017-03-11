@@ -29,8 +29,7 @@ class Manager
      * @var array
      */
     private $separate = [
-        'user_errors' => null,
-        'php_errors' => null,
+        'errors' => null,
         'exceptions' => null
     ];
 
@@ -76,21 +75,21 @@ class Manager
          * Working directory path must be declared.
          */
         if (!array_key_exists('dirname', $parameters)){
-            throw new Exception("Working directory path is not specified. Missed parameter 'dirname'!");
+            throw new \Exception("Working directory path is not specified. Missed parameter 'dirname'!");
         }
 
         if (!is_dir($parameters['dirname'])){
-            throw new Exception(sprintf("Directory was not found on path '%s'.", $parameters['dirname']));
+            throw new \Exception(sprintf("Directory was not found on path '%s'.", $parameters['dirname']));
         }
 
         if (!array_key_exists('filelog', $parameters)){
-            throw new Exception("You must determine name of default filelog!");
+            throw new \Exception("You must determine name of default filelog!");
         }
 
 
         if (array_key_exists('template', $parameters)){
             if (!is_string($parameters['template']) && !is_null($parameters['template'])){
-                throw new Exception("Parameter 'template' can be only null or 'default' or HTML template!");
+                throw new \Exception("Parameter 'template' can be only null or 'default' or HTML template!");
             }
         }
 
