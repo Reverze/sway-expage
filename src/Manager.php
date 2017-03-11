@@ -122,14 +122,36 @@ class Manager
         ob_start();
     }
 
+    /**
+     * All errors and exceptions will be serviced on script exit.
+     */
     private function registerHandlerOnExit()
     {
-        register_shutdown_function([$this, "handleOnExit"]);
+        register_shutdown_function(function(){
+            $this->handleOnExit();
+        });
     }
 
-    public function handleOnExit()
+    private function handleOnExit()
     {
+        /**
+         * If error manager is disabled, exit.
+         */
+        if ($this->disabled){
+            return;
+        }
 
+        /**
+         * Gets all occurred errors recorded by the listener
+         */
+        $occurredErrors = $this->listener->getOccurredErrors();
+
+        /**
+         * Gets all uncaughted exceptions recorded by the listener
+         */
+        $uncaughtedExceptions = $this->listener->getUncaughtedExceptions();
+
+        var_dump($_SERVER);
     }
 
 }
