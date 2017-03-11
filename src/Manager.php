@@ -2,6 +2,8 @@
 
 namespace Rev\ExPage;
 
+use Rev\ExPage\View\CliView;
+
 class Manager
 {
     /**
@@ -123,6 +125,14 @@ class Manager
     }
 
     /**
+     * Cleans output buffer
+     */
+    private function cleanOutputBuffer()
+    {
+        ob_clean();
+    }
+
+    /**
      * All errors and exceptions will be serviced on script exit.
      */
     private function registerHandlerOnExit()
@@ -151,7 +161,21 @@ class Manager
          */
         $uncaughtedExceptions = $this->listener->getUncaughtedExceptions();
 
-        var_dump(php_sapi_name());
+        /**
+         * No errors occurred and no caughted exceptions
+         */
+        if (!sizeof($occurredErrors) && !sizeof($uncaughtedExceptions)){
+            return;
+        }
+
+        $sapiName = php_sapi_name();
+
+        if ($sapiName === 'cli'){
+            $cliView = new CliView();
+            $cliView->setOccurredErrors($occurredErrors);
+            $cliView->setUncaughtedException($uncaughtedExceptions);
+            $cliView->render();
+        }
     }
 
 }
