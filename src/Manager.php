@@ -2,6 +2,7 @@
 
 namespace Rev\ExPage;
 
+use Rev\ExPage\View\BrowserView;
 use Rev\ExPage\View\CliView;
 
 class Manager
@@ -86,19 +87,26 @@ class Manager
             throw new \Exception("Working directory path is not specified. Missed parameter 'dirname'!");
         }
 
+
         if (!is_dir($parameters['dirname'])){
             throw new \Exception(sprintf("Directory was not found on path '%s'.", $parameters['dirname']));
         }
 
+        $this->workingDirectoryPath = $parameters['dirname'];
+
         if (!array_key_exists('filelog', $parameters)){
             throw new \Exception("You must determine name of default filelog!");
         }
+
+        $this->logFileName = $parameters['filelog'];
 
 
         if (array_key_exists('template', $parameters)){
             if (!is_string($parameters['template']) && !is_null($parameters['template'])){
                 throw new \Exception("Parameter 'template' can be only null or 'default' or HTML template!");
             }
+
+            $this->pageTemplate = $parameters['template'];
         }
 
         if (array_key_exists('separate', $parameters)){
@@ -178,11 +186,20 @@ class Manager
 
         $sapiName = php_sapi_name();
 
+        $sapiName = "dasdas";
         if ($sapiName === 'cli'){
             $cliView = new CliView($this->cliViewParameters);
             $cliView->setOccurredErrors($occurredErrors);
             $cliView->setUncaughtedException($uncaughtedExceptions);
             $cliView->render();
+        }
+        else{
+            $browserView = new BrowserView();
+            $browserView->setOccurredErrors($occurredErrors);
+            $browserView->setUncaughtedException($uncaughtedExceptions);
+            $browserView->setViewsDirectoryPath(dirname(__FILE__) . '/Resources/View');
+            $browserView->setTemplateFile($this->pageTemplate);
+            $browserView->render();
         }
     }
 
