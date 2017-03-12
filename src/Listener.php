@@ -42,7 +42,29 @@ class Listener
             $error->setMessage($message);
             $error->setFileName($filename);
             $error->setLineNumber($linenumber);
-            $error->setScopeAround($context);
+
+            $scope = array();
+
+            foreach ($context as $variableName => $variableValue){
+                if ($variableName === "GLOBALS"){
+                    continue;
+                }
+
+                if ($variableName === "__FILES"){
+                    continue;
+                }
+
+                if ($variableValue instanceof \Rev\ExPage\Manager){
+                    continue;
+                }
+                $length = @count($variableValue, COUNT_RECURSIVE);
+
+                if ($length < 5){
+                    $scope[$variableName] = $variableValue;
+                }
+            }
+
+            $error->setScopeAround($scope);
 
             array_push($this->errors, $error);
         });
