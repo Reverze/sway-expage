@@ -153,6 +153,7 @@ class CliView extends View
                 echo sprintf("at line: '%d' \n", $exception->getLine());
             }
 
+
             if ($this->exceptionRenderParameters['show_trace']){
                 echo sprintf("Trace: \n");
 
