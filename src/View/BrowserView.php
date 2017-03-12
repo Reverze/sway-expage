@@ -85,11 +85,19 @@ class BrowserView extends View
         }
     }
 
+    /**
+     * Shows error output
+     */
+    public function showOutput()
+    {
+        $this->showOutput = true;
+    }
 
     public function render()
     {
         $this->errors = $this->occurredErrors;
         $this->exceptions = $this->uncaughtedExceptions;
+
 
         include_once($this->templateFile);
     }
