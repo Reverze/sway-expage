@@ -75,7 +75,7 @@ class Listener
      */
     protected function registerUncaughtExceptionHandler()
     {
-        set_exception_handler(function(\Exception $uncaughtedException) {
+        set_exception_handler(function(\Throwable $uncaughtedException) {
             /**
              * Stores uncaughted exception
              */
