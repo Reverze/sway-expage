@@ -62,7 +62,7 @@ class Entry
      * Adds exception log
      * @param \Exception $exception
      */
-    public function addException(\Exception $exception)
+    public function addException(\Throwable $exception)
     {
         $exceptionLog = '-------------------------------------------------------';
         $exceptionLog .= sprintf("Uncaughted exception [%s] Message: %s", get_class($exception), $exception->getMessage());
