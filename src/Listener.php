@@ -43,7 +43,7 @@ class Listener
             $error->setFileName($filename);
             $error->setLineNumber($linenumber);
 
-            $scope = array();
+            /*$scope = array();
 
             foreach ($context as $variableName => $variableValue){
                 if ($variableName === "GLOBALS"){
@@ -64,7 +64,7 @@ class Listener
                 }
             }
 
-            $error->setScopeAround($scope);
+            $error->setScopeAround($scope);*/
 
             array_push($this->errors, $error);
         });
@@ -75,7 +75,7 @@ class Listener
      */
     protected function registerUncaughtExceptionHandler()
     {
-        set_exception_handler(function(\Exception $uncaughtedException) {
+        set_exception_handler(function(\Throwable $uncaughtedException) {
             /**
              * Stores uncaughted exception
              */
