@@ -16,7 +16,7 @@ class Entry
      * Log entry dateformat
      * @var string
      */
-    private $dateFormat = 'd.m.Y H:i:s';
+    private $dateFormat = 'dd.mm.YYYY H:i:s';
 
     public function __construct(string $dateFormat = "d.m.Y H:i:s")
     {
