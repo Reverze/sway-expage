@@ -114,7 +114,11 @@ class Manager
 
 
         if (!is_dir($parameters['dirname'])){
-            throw new \Exception(sprintf("Directory was not found on path '%s'.", $parameters['dirname']));
+            $mkdirResult = mkdir($parameters['dirname'], 0777);
+
+            if (!$mkdirResult){
+                throw new \Exception(spritnf("Cannot create directory on path: '%s'", $parameters['dirname']));
+            }
         }
 
         $this->workingDirectoryPath = $parameters['dirname'];
@@ -360,5 +364,3 @@ class Manager
     }
 
 }
-
-?>
